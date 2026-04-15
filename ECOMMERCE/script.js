@@ -45,26 +45,32 @@ function renderCart(){
         emptyCartMessage.classList.add('hidden');
         cartTotal.classList.remove('hidden');
         cart.forEach((item,index)=>{
-            totalPrice+=item.price;
-        const cartItem=document.createElement('div');
-        cartItem.innerHTML=`
-        ${item.name}-$${item.price.toFixed(2)}
-        `
-        cartItems.appendChild(cartItem);
-totalPriceDisplay.textContent=`${totalPrice.toFixed(2)}`
-
-        })
-        
-
-
-    }else{
+            totalPrice += item.price;
+            const cartItem = document.createElement('div');
+            cartItem.classList.add('cart-item');
+            cartItem.innerHTML = `
+                <span>${item.name} - $${item.price.toFixed(2)}</span>
+                <button class="delete-btn" data-index="${index}">Delete</button>
+            `;
+            cartItems.appendChild(cartItem);
+        });
+        totalPriceDisplay.textContent = `$${totalPrice.toFixed(2)}`;
+    } else {
         emptyCartMessage.classList.remove('hidden');
         cartTotal.classList.add('hidden');
-    
-
     }
-
 }
+
+cartItems.addEventListener('click', (e) => {
+    if (e.target.classList.contains('delete-btn')) {
+        const index = parseInt(e.target.getAttribute('data-index'));
+        if (!isNaN(index)) {
+            cart.splice(index, 1);
+            renderCart();
+        }
+    }
+});
+
 checkOutBtn.addEventListener('click',()=>{
     cart.length=0
     alert("checkout successfully")
