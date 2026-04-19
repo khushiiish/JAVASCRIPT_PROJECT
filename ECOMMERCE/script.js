@@ -18,12 +18,9 @@ products.forEach(product=>{
   productDiv.innerHTML=`
   <span>${product.name}-$${product.price.toFixed(2)}</span>
   <button data-id="${product.id}">Add to Cart</button>
-  
   `;
   productList.appendChild(productDiv);
-  
-
-});
+  });
 productList.addEventListener('click',(e)=>{
 if(e.target.tagName==='BUTTON'){
 const productId=parseInt( e.target.getAttribute('data-id'));
@@ -32,11 +29,9 @@ addToCart(product)
 }
 
 })
-    
-function addToCart(product){
+    function addToCart(product){
 cart.push(product);
 renderCart();
-
 }
 function renderCart(){
     cartItems.innerHTML='';
